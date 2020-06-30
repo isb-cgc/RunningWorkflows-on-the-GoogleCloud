@@ -1,0 +1,36 @@
+IDS, = glob_wildcards("/opt/testGcsfuse/{sample}.bam")
+rule all:
+    input:
+        "final/final_gc_stats_out.txt"
+
+rule samtools_stats_tool:
+    input:
+        "/opt/testGcsfuse/{sample}.bam"
+    output:
+        "{sample}_gc_stats.txt"
+    shell:
+        "samtools stats {input} > {output}"
+
+rule grep:
+    input:
+        "{sample}_gc_stats.txt"
+    output:
+        "grepped/{sample}_grep_out.txt"
+    shell:
+        "grep --with-filename '^GCF' {input} > {output}"
+
+rule cut:
+    input:
+        "grepped/{sample}_grep_out.txt"
+    output:
+        "cut/{sample}_cut_out.txt"
+    shell:
+        "cut -d '/' -f 9- {input} > {output}"
+
+rule cat:
+    input:
+        expand("cut/{sample}_cut_out.txt", sample=IDS)
+    output:
+        "final/final_gc_stats_out.txt"
+    shell:
+        "cat {input} > {output}"

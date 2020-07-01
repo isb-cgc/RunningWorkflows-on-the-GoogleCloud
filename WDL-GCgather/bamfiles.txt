@@ -1,1 +1,1 @@
-File1.bam	bam1
+/opt/testGcsfuse/G27328.Calu-6.1.bam	bam1

@@ -1,0 +1,2 @@
+filein:
+  - {class: File, path: /opt/testGcsfuse/G27328.Calu-6.1.bam}

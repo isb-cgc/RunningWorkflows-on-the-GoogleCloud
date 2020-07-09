@@ -8,7 +8,7 @@ requirements:
    ShellCommandRequirement: {}
    InlineJavascriptRequirement: {}
    DockerRequirement:
-      dockerPull: quay.io/biocontainers/hisat2:2.1.0--py27h2d50403_2
+      dockerPull: kathrinklee/rna-seq-pipeline-hisat2
 
 arguments:
   - position: 1

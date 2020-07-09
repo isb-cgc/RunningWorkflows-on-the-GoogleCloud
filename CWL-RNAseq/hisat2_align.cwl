@@ -7,7 +7,7 @@ baseCommand:
 requirements:
   ShellCommandRequirement: {}
   DockerRequirement:
-    dockerPull: quay.io/biocontainers/hisat2:2.1.0--py27h2d50403_2
+    dockerPull: kathrinklee/rna-seq-pipeline-hisat2
   InlineJavascriptRequirement: {}
 
 arguments:
@@ -38,7 +38,7 @@ inputs:
       position: 7
       prefix: "-1"
   rev_file:
-    type: File?  
+    type: File?
     inputBinding:
       position: 8
       prefix: "-2"

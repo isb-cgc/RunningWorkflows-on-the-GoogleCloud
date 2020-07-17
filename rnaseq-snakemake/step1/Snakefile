@@ -1,4 +1,0 @@
-rule targets:
-    input:
-        "index.done"
-include: "indexing.smk"

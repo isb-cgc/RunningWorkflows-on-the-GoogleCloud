@@ -1,0 +1,8 @@
+SAMPLES, = glob_wildcards('../data/{sample}_1.fq')
+rule targets:
+    input:
+        expand("{sample}.cutadapt.sam", sample = SAMPLES),
+        expand("{sample}.cutadapt.bam", sample = SAMPLES),
+        expand("{sample}_transcript.gtf", sample = SAMPLES)
+include: "therest.smk"
+

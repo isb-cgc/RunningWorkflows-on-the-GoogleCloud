@@ -36,7 +36,7 @@ outputs:
     outputSource: step3/bam_file
   gtf_transcript_file:
     type: File
-    outputSource: step4/tsv_file
+    outputSource: step4/gtf_transcript_file
   tsv_file:
     type: File
     outputSource: step4/tsv_file

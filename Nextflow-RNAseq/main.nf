@@ -28,14 +28,17 @@ process align {
     input:
     path forRead from params.forRead
     path revRead from params.revRead
-    path index from params.indexDir
+    file indices from index_ch.collect()
 
     output:
     path "sample.sam" into sam_ch
 
+    script:
+    index_base = indices[0].toString() - ~/.\d.ht2l?/
+
     """
     echo "Aligning Reads"
-    hisat2 -x ${index}/index --dta  --rna-strandness RF -1 ${forRead} -2 ${revRead} -S sample.sam
+    hisat2 -x ${index_base} --dta  --rna-strandness RF -1 ${forRead} -2 ${revRead} -S sample.sam
     """
 
 }

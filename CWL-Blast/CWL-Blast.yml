@@ -1,0 +1,15 @@
+fasta_file:
+   class: File
+   path: data/sample.fa
+blastn_db:
+   class: Directory
+   path: db/
+script1:
+   class: File
+   path: scripts/Extract_Headers.py
+script2:
+   class: File
+   path: scripts/Count_Nucleotides.py
+script3:
+   class: File
+   path: scripts/Extract_Contigs.py

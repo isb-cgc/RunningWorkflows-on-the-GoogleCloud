@@ -1,5 +1,5 @@
 #!usr/bin/env cwl-runner
-
+#Quantify and produce transcript from Bam file
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: stringtie

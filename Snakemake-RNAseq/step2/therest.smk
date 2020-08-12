@@ -1,3 +1,4 @@
+# This rule will align the reads to the reference genome, results in a sam file with alignment datas.
 rule hisat2:
     input:
         r1 = '../data/{sample}_1.fq',
@@ -7,7 +8,7 @@ rule hisat2:
     shell: """
         hisat2  -x ../step1/reference/index --dta  --rna-strandness RF -1 {input.r1}  -2 {input.r2} -S {output.r1}
     """
-
+# This rule will create a compressed binary data (Bam) from Sam file using samtools
 rule create_bams:
     input:
         "{sample}.cutadapt.sam"
@@ -15,7 +16,7 @@ rule create_bams:
         "{sample}.cutadapt.bam"
     shell:
         "samtools view -bh {input} | samtools sort - -o {output}; samtools index {output}"
-
+# This rule will quanitify the reads depth from the Bam file and produce transcript
 rule transcript:
     input:
         "{sample}.cutadapt.bam"

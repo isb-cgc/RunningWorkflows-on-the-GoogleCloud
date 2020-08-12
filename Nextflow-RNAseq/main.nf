@@ -6,7 +6,7 @@ params.refGenome = "$baseDir/data/sample.fa"
 params.forRead = "$baseDir/data/sample_1.fq"
 params.revRead = "$baseDir/data/sample_2.fq"
 params.gtfFile = "$baseDir/data/sample.gtf"
-
+/*Building index file for alignment using hisat2 */
 process buildIndex {
     publishDir params.indexDir, mode: 'copy'
     echo true
@@ -21,7 +21,7 @@ process buildIndex {
     hisat2-build ${refGenome} index
     """
 }
-
+/*Aligning the reads to the index database */
 process align {
     publishDir params.outdir, mode: 'copy'
     echo true
@@ -42,6 +42,7 @@ process align {
     """
 
 }
+/*creating a binary compression of Sam file */
 process create_bam {
     publishDir params.outdir, mode: 'copy'
     echo true
@@ -56,6 +57,7 @@ process create_bam {
     """
 
 }
+/*Quantify and produce transcript from Bam file */
 process create_transcript {
     publishDir params.outdir, mode: 'copy'
     echo true

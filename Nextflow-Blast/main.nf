@@ -7,6 +7,7 @@ params.script2 = "$baseDir/scripts/Count_Nucleotides.py"
 params.script3 = "$baseDir/scripts/Extract_Contigs.py"
 db_dir = file(params.db).parent
 db_name = file(params.db).name
+/* this task will blast the contigs to their appropriate organisms*/
 process Blastn{
     publishDir params.outdir, mode: 'copy'
     input:
@@ -18,6 +19,7 @@ process Blastn{
 
     "blastn -db $db/$db_name -query ${query} -outfmt 6 -out Blastn.out"
 }
+/* This task will extract the header of interest */
 process Extract_Headers{
     publishDir params.outdir, mode: 'copy'
     input:
@@ -31,6 +33,7 @@ process Extract_Headers{
     python ${script1} ${blastn_out} Headers.txt
     """
 }
+/* This task will count the number of base in your interest contigs*/
 process Count_Nucleotides{
     publishDir params.outdir, mode: 'copy'
     input:
@@ -44,6 +47,7 @@ process Count_Nucleotides{
     python ${script2} ${query} ${headers} > NucleoCount.txt
     """
 }
+/* This task will pull the contigs of interest in a text file */
 process Extract_Contigs{
     publishDir params.outdir, mode: 'copy'
     input:

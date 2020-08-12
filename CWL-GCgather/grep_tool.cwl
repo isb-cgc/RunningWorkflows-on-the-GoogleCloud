@@ -1,5 +1,5 @@
 #grep_tool.cwl
-
+#this task grab the GCF line out of the stat files.
 cwlVersion: v1.0
 
 class: CommandLineTool

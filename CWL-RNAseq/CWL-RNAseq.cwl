@@ -1,5 +1,5 @@
 #!/usr/bin/env cwl-runner
-
+#main script that connect all the helpers scripts and input file together
 cwlVersion: v1.0
 class: Workflow
 requirements:

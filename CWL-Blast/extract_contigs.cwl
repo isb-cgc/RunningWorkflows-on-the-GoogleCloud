@@ -1,4 +1,4 @@
-
+#this script will extract the contigs of interest
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: python

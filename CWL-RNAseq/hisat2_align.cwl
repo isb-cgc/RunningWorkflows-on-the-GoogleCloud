@@ -1,5 +1,5 @@
 #!usr/bin/env cwl-runner
-
+#Aligning the reads to the index database
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand:

@@ -1,4 +1,6 @@
+# this rule determine the out put of this run
 rule targets:
     input:
         "index.done"
+# calling the helper script indexing.smk
 include: "indexing.smk"

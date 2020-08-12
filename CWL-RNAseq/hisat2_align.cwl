@@ -1,5 +1,5 @@
 #!usr/bin/env cwl-runner
-
+#Aligning the reads to the index database
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand:
@@ -38,7 +38,7 @@ inputs:
       position: 7
       prefix: "-1"
   rev_file:
-    type: File?  
+    type: File?
     inputBinding:
       position: 8
       prefix: "-2"

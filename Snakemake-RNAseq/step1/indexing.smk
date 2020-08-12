@@ -1,3 +1,4 @@
+#This rule will build index files from a reference genome
 rule indexing:
     input:
         "../data/reference.fa"

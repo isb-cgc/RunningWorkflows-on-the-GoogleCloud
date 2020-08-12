@@ -1,5 +1,5 @@
 #!usr/bin/env cwl-runner
-
+# creating a binary compression of Sam file
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: samtools

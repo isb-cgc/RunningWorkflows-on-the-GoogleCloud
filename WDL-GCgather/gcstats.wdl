@@ -3,7 +3,7 @@ workflow gcStats {
     File inputSamplesFile
 
     Array[Array[String]] inputSamples = read_tsv(inputSamplesFile)
-
+    #scatter the list of inputs to process them individually
     scatter (sample in inputSamples) {
      call samtools_stats_tool {
        input:
@@ -31,7 +31,9 @@ workflow gcStats {
          filesin = cut_tool.cuttoolout
      }
 
-} # end workflow
+}
+# end workflow
+#this task use sammtools to produce stats from bam files
 task samtools_stats_tool {
     File filein
     String filename
@@ -46,6 +48,8 @@ task samtools_stats_tool {
          File statsout = "${filename}_gc_stats.txt"
     }
 }
+
+#this task grab the GCF line out of the stat files.
 task grep_tool {
     File grepin
 
@@ -61,7 +65,6 @@ task grep_tool {
         File grepout = "grep_out.txt"
     }
 }
-
 
 task cut_tool {
     File cutin

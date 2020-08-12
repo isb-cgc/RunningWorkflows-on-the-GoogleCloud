@@ -1,5 +1,5 @@
 #cat_tool.cwl
-
+#this task gather all the GC content to a text file
 cwlVersion: v1.0
 
 class: CommandLineTool

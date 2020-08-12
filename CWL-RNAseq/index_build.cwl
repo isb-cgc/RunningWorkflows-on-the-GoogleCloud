@@ -1,5 +1,5 @@
 #!usr/bin/env cwl-runner
-
+#Building index file for alignment using hisat2
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand:

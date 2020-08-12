@@ -1,5 +1,5 @@
 #samtools_stats_tool.cwl
-
+#this task use sammtools to produce stats from bam files
 cwlVersion: v1.0
 class: CommandLineTool
 

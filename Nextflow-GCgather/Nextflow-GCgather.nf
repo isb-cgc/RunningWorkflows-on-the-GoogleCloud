@@ -1,7 +1,7 @@
 #!/usr/bin/env nextflow
 myBamSample = Channel.fromPath('/home/thinh_vo/sample/*.bam')
 params.outdir = 'Sam_results'
-
+/* this task use sammtools to produce stats from bam files */
 process bamFilesProcessing {
     cpus 1
     publishDir params.outdir, mode: 'copy'
@@ -16,6 +16,7 @@ process bamFilesProcessing {
     samtools stats ${query_file} > ${query_file}_stats.txt
     """
 }
+/* this task grab the GCF line out of the stat files.*/
 process grep_tool{
     publishDir params.outdir, mode: 'copy'
     echo true
@@ -40,6 +41,7 @@ process cut_tool{
     cut -d '/' -f 9- ${y} > ${y}.cut_out.txt
     """
 }
+/* Gather them in one text file */
 process cat_tool {
     publishDir params.outdir, mode: 'copy', overwrite: true
     echo true

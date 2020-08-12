@@ -1,5 +1,5 @@
 #!usr/bin/env cwl-runner
-
+#this blast the contigs to the database
 cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: blastn

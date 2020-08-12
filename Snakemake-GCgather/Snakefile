@@ -1,8 +1,9 @@
 IDS, = glob_wildcards("/opt/testGcsfuse/{sample}.bam")
+#this rule determine which is the output of this workflow
 rule all:
     input:
         "final/final_gc_stats_out.txt"
-
+#this task use sammtools to produce stats from bam files
 rule samtools_stats_tool:
     input:
         "/opt/testGcsfuse/{sample}.bam"
@@ -10,7 +11,7 @@ rule samtools_stats_tool:
         "{sample}_gc_stats.txt"
     shell:
         "samtools stats {input} > {output}"
-
+#this task grab the GCF line out of the stat files.
 rule grep:
     input:
         "{sample}_gc_stats.txt"

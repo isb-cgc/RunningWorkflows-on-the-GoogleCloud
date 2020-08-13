@@ -1,1 +1,1 @@
-/opt/testGcsfuse/G27328.Calu-6.1.bam	bam1
+/home/thinh_vo/testGcsfuse/G27328.Calu-6.1.bam	bam1

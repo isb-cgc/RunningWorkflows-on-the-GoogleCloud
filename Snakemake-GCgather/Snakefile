@@ -1,4 +1,4 @@
-IDS, = glob_wildcards("/opt/testGcsfuse/{sample}.bam")
+IDS, = glob_wildcards("/home/thinh_vo/testGcsfuse/{sample}.bam")
 #this rule determine which is the output of this workflow
 rule all:
     input:
@@ -6,7 +6,7 @@ rule all:
 #this task use sammtools to produce stats from bam files
 rule samtools_stats_tool:
     input:
-        "/opt/testGcsfuse/{sample}.bam"
+        "/home/thinh_vo/testGcsfuse/{sample}.bam"
     output:
         "{sample}_gc_stats.txt"
     shell:

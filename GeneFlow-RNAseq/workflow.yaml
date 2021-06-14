@@ -1,0 +1,107 @@
+%YAML 1.1
+---
+gfVersion: v2.0
+class: workflow
+
+# metadata
+name: HISAT2 StringTie Workflow
+description: RNAseq workflow using HISAT2 and StringTie
+git: https://github.com/isb-cgc/RunningWorkflows-on-the-GoogleCloud/GeneFlow-RNAseq
+version: '0.1'
+
+final_output:
+- sort
+- quantify
+
+# inputs
+inputs:
+  reads:
+    label: Input Directory
+    description: Input directory containing FASTQ files
+    type: Directory
+    default: ./data/reads
+    enable: true
+    visible: true
+  gtf:
+    label: Input GTF
+    description: GTF file describing transcriptome
+    type: File
+    default: ./data/gtf/sample.gtf
+    enable: true
+    visible: true
+  reference:
+    label: Reference Sequence FASTA
+    description: Reference sequence FASTA file
+    type: File
+    default: ./data/reference/sample.fa
+    enable: true
+    visible: true
+
+# parameters
+parameters: 
+  threads:
+    label: CPU Threads
+    description: Number of CPU threads for alignment
+    type: int
+    default: 2
+    enable: false
+    visible: true
+
+# apps
+apps:
+  hisat2-build:
+    git: https://gitlab.com/geneflow/apps/hisat2-build-gf2.git
+    version: '2.2.1-01'
+  hisat2-align:
+    git: https://gitlab.com/geneflow/apps/hisat2-align-gf2.git
+    version: '2.2.1-01'
+  bam-sort:
+    git: https://gitlab.com/geneflow/apps/bam-sort-gf2.git
+    version: '1.10-07'
+  stringtie:
+    git: https://gitlab.com/geneflow/apps/stringtie-gf2.git
+    version: '2.1.6-01'
+
+# steps
+steps:
+  build:
+    app: hisat2-build
+    depend: []
+    template:
+      reference: ${workflow->reference}
+      output: reference
+
+  align:
+    app: hisat2-align
+    depend: [ "build" ]
+    map:
+      uri: ${workflow->reads}
+      regex: (.*)_(R|)1(.*)\.((fastq|fq)(|\.gz))$
+    template:
+      input: ${workflow->reads}/${1}_${2}1${3}.${4}
+      pair: ${workflow->reads}/${1}_${2}2${3}.${4}
+      reference: ${build->output}/reference
+      threads: ${workflow->threads}
+      output: ${1}.sam
+
+  sort:
+    app: bam-sort
+    depend: [ "align" ]
+    map:
+      uri: ${align->output}
+      regex: (.*).sam
+    template:
+      input: ${align->output}/${1}.sam
+      output: ${1}.bam
+
+  quantify:
+    app: stringtie
+    depend: [ "sort" ]
+    map:
+      uri: ${sort->output}
+      regex: (.*).bam
+    template:
+      bam: ${sort->output}/${1}.bam
+      gtf: ${workflow->gtf}
+      output: ${1}
+...

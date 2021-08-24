@@ -50,16 +50,16 @@ parameters:
 # apps
 apps:
   hisat2-build:
-    git: https://gitlab.com/geneflow-apps/hisat2-build-gf2.git
+    git: https://github.com/geneflow-apps/hisat2-build-gf2.git
     version: '2.2.1-01'
   hisat2-align:
-    git: https://gitlab.com/geneflow-apps/hisat2-align-gf2.git
+    git: https://github.com/geneflow-apps/hisat2-align-gf2.git
     version: '2.2.1-01'
   bam-sort:
-    git: https://gitlab.com/geneflow-apps/bam-sort-gf2.git
+    git: https://github.com/geneflow-apps/bam-sort-gf2.git
     version: '1.10-07'
   stringtie:
-    git: https://gitlab.com/geneflow-apps/stringtie-gf2.git
+    git: https://github.com/geneflow-apps/stringtie-gf2.git
     version: '2.1.6-01'
 
 # steps

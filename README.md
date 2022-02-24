@@ -12,6 +12,13 @@ How to get started materials:
 * [Running Workflow with GCSFUSE](https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/gcp-info/WorkflowWithGCSFUSE.html)
 * [Running NEXTFLOW pipeline on public Bam file From ISB-CGC](https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/gcp-info/RunningNextflowWithBam.html)
 
+## CWL Runner
+
+The CWL-Runner directory of this repository contains a set of wrapper scripts originally taken from [Google Genomics Pipelines and API Examples](https://github.com/googlegenomics/pipelines-api-examples) and updated for compatibility with the latest Linux packages. Use this wrapper to launch CWL workflows in Google Cloud.
+
+## General Information
+
 For general information about the ISB-CGC, please contact us at feedback@isb-cgc.org. We are especially keen on learning about your particular use-cases, and how we can help you take advantage of the latest in cloud-computing technologies to answer your research questions.
 
 For feature requests or bug reports, please send e-mail to feedback@isb-cgc.org.
+

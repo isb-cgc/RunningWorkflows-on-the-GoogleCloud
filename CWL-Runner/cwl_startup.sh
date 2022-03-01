@@ -133,6 +133,7 @@ if [[ ${RUNNER} == "cwltool" ]]; then
 
 
   # authorize docker registry access
+  gcloud auth configure-docker --quiet us-docker.pkg.dev
   gcloud auth configure-docker --quiet us-central1-docker.pkg.dev
 
   echo "$(date)"

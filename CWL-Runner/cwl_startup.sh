@@ -58,18 +58,36 @@ sudo mkdir -m 777 -p "${INPUT_FOLDER}"
 sudo mkdir -m 777 -p "${OUTPUT_FOLDER}"
 sudo mkdir -m 777 -p "${TMP_FOLDER}"
 
+echo "Copying settings file to local disk"
+readonly SETTINGS_LOCAL="${INPUT_FOLDER}/${SETTINGS_FILE//:\//}"
+SETTINGS_BASE="$(basename ${SETTINGS_FILE//:\//})"
+CMD="mkdir -p $(dirname ${SETTINGS_LOCAL})"
+echo "${CMD}"
+${CMD}
+CMD="gsutil -m cp ${SETTINGS_FILE} ${SETTINGS_LOCAL}"
+echo "${CMD}"
+${CMD}
+
 echo "$(date)"
 echo "Copying input files to local disk"
 while IFS=';' read -ra URL_LIST; do
   for URL in "${URL_LIST[@]}"; do
     URL=$(echo ${URL} | tr -d '"')  # Remove quotes
     URL_LOCAL="${INPUT_FOLDER}/$(dirname ${URL//:\//})"
+    URL_BASE="$(basename ${URL//:\//})"
     CMD="mkdir -p ${URL_LOCAL}"
     echo "${CMD}"
     ${CMD}
     CMD="gsutil -m -o GSUtil:parallel_composite_upload_threshold=150M cp ${URL} ${URL_LOCAL}"
     echo "${CMD}"
     ${CMD}
+    # check if needs to be untarred, gunziped
+    if [[ "${URL_BASE}" == *.tar.gz ]]; then
+        NEW_NAME="${URL_LOCAL}/${URL_BASE}.fastq.gz"
+        tar -xzf "${URL_LOCAL}/${URL_BASE}" -O "${NEW_NAME}"
+        # update settings file with untarred, gunzipped file
+        sed -i 's/'"${URL_BASE}"'/'"${URL_BASE}"'.fastq.gz/g' "${SETTINGS_LOCAL}/${SETTINGS_BASE}"
+    fi
   done
 done <<< "${INPUT}"
 
@@ -94,15 +112,6 @@ CMD="mkdir -p $(dirname ${WORKFLOW_LOCAL})"
 echo "${CMD}"
 ${CMD}
 CMD="gsutil -m cp ${WORKFLOW_FILE} ${WORKFLOW_LOCAL}"
-echo "${CMD}"
-${CMD}
-
-echo "Copying settings file to local disk"
-readonly SETTINGS_LOCAL="${INPUT_FOLDER}/${SETTINGS_FILE//:\//}"
-CMD="mkdir -p $(dirname ${SETTINGS_LOCAL})"
-echo "${CMD}"
-${CMD}
-CMD="gsutil -m cp ${SETTINGS_FILE} ${SETTINGS_LOCAL}"
 echo "${CMD}"
 ${CMD}
 

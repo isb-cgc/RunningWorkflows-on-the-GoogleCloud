@@ -36,6 +36,7 @@ echo "Running startup script"
 echo "Initializing variables"
 readonly WORKFLOW_FILE=$(curl "${METADATA_URL}/attributes/workflow-file" -H "${METADATA_HEADERS}")
 readonly SETTINGS_FILE=$(curl "${METADATA_URL}/attributes/settings-file" -H "${METADATA_HEADERS}")
+readonly VAR_INPUT=$(curl "${METADATA_URL}/attributes/var-input" -H "${METADATA_HEADERS}")
 readonly INPUT=$(curl "${METADATA_URL}/attributes/input" -H "${METADATA_HEADERS}")
 readonly INPUT_RECURSIVE=$(curl "${METADATA_URL}/attributes/input-recursive" -H "${METADATA_HEADERS}")
 readonly DISK_NAME=google-$(curl "${METADATA_URL}/disks/1/device-name" -H "${METADATA_HEADERS}")
@@ -67,11 +68,6 @@ ${CMD}
 CMD="gsutil -m cp ${SETTINGS_FILE} ${SETTINGS_LOCAL}"
 echo "${CMD}"
 ${CMD}
-
-echo "$(date)"
-echo "Processing variable input files"
-
-
 
 echo "$(date)"
 echo "Copying input files to local disk"

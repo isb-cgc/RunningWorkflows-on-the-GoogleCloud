@@ -60,7 +60,7 @@ sudo mkdir -m 777 -p "${TMP_FOLDER}"
 
 echo "Copying settings file to local disk"
 readonly SETTINGS_LOCAL="${INPUT_FOLDER}/${SETTINGS_FILE//:\//}"
-SETTINGS_BASE="$(basename ${SETTINGS_FILE//:\//})"
+#SETTINGS_BASE="$(basename ${SETTINGS_FILE//:\//})"
 CMD="mkdir -p $(dirname ${SETTINGS_LOCAL})"
 echo "${CMD}"
 ${CMD}
@@ -84,9 +84,9 @@ while IFS=';' read -ra URL_LIST; do
     # check if needs to be untarred, gunziped
     if [[ "${URL_BASE}" == *.tar.gz ]]; then
         NEW_NAME="${URL_LOCAL}/${URL_BASE}.fastq.gz"
-        tar -xzf "${URL_LOCAL}/${URL_BASE}" -O "${NEW_NAME}"
+        tar -xzOf "${URL_LOCAL}/${URL_BASE}" > "${NEW_NAME}"
         # update settings file with untarred, gunzipped file
-        sed -i 's/'"${URL_BASE}"'/'"${URL_BASE}"'.fastq.gz/g' "${SETTINGS_LOCAL}/${SETTINGS_BASE}"
+        sed -i 's/'"${URL_BASE}"'/'"${URL_BASE}"'.fastq.gz/g' "${SETTINGS_LOCAL}"
     fi
   done
 done <<< "${INPUT}"

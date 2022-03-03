@@ -69,11 +69,6 @@ echo "${CMD}"
 ${CMD}
 
 echo "$(date)"
-echo "Processing variable input files"
-
-
-
-echo "$(date)"
 echo "Copying input files to local disk"
 while IFS=';' read -ra URL_LIST; do
   for URL in "${URL_LIST[@]}"; do

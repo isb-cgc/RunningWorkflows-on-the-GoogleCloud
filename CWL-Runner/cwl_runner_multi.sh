@@ -144,7 +144,7 @@ readonly DISK_CMD="gcloud compute disks create ${DISK_NAME} ${ZONE} --size ${DIS
 
 readonly SCRIPT_DIR="$( cd $( dirname ${BASH_SOURCE[0]} ) && pwd )"
 
-readonly STARTUP_SCRIPT_NAME="cwl_startup.sh"
+readonly STARTUP_SCRIPT_NAME="cwl_startup_multi.sh"
 readonly STARTUP_SCRIPT="${SCRIPT_DIR}/${STARTUP_SCRIPT_NAME}"
 readonly STARTUP_SCRIPT_URL="${OUTPUT}/${STARTUP_SCRIPT_NAME%.*}-${OPERATION_ID}.sh"
 

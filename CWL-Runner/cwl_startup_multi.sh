@@ -70,6 +70,38 @@ echo "${CMD}"
 ${CMD}
 
 echo "$(date)"
+echo "Copying variable input files to local disk and updating settings file"
+while IFS=':' read -ra VAR_INPUT_LIST; do
+  for VAR_IN in "${VAR_INPUT_LIST[@]}"; do
+    while IFS=';' read -ra SUB_INPUT_LIST; do
+      for SUB_IN in "${SUB_INPUT_LIST}"; do
+        while IFS='=' read -ra KEY_VAL; do
+          KEY="${KEY_VAL[0]}"
+          VAL="${KEY_VAL[1]}"
+          VAL_LOCAL="${INPUT_FOLDER}/$(dirname ${VAL//:\//})"
+          VAL_BASE="$(basename ${VAL//:\//})"
+          CMD="mkdir -p ${VAL_LOCAL}"
+          echo "${CMD}"
+          ${CMD}
+          CMD="gsutil -m -o GSUtil:parallel_composite_upload_threshold=150M cp ${VAL} ${VAL_LOCAL}"
+          echo "${CMD}"
+          ${CMD}
+          # check if needs to be untarred, gunziped
+          if [[ "${VAL_BASE}" == *.tar.gz ]]; then
+            VAL_NAME="${VAL_LOCAL}/${VAL_BASE}.fastq.gz"
+            tar -xzOf "${VAL_LOCAL}/${VAL_BASE}" > "${VAL_NAME}"
+          else
+            VAL_NAME="${VAL_LOCAL}/${VAL_BASE}"
+          fi          
+          # update settings file
+          sed -i 's/{% '"${KEY}"' %}/'"${VAL_NAME}"'/g' "${SETTINGS_LOCAL}"
+        done <<< "${SUB_IN}" 
+      done
+    done <<< "${VAR_IN}"
+  done
+done <<< "${VAR_INPUT}"
+
+echo "$(date)"
 echo "Copying input files to local disk"
 while IFS=';' read -ra URL_LIST; do
   for URL in "${URL_LIST[@]}"; do

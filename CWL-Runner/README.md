@@ -115,3 +115,7 @@ gsutil cat gs://MY-BUCKET/MY-PATH/stdout-OPERATION-ID.txt | less
 
 For additional debugging, you can rerun this script with --keep-alive and ssh into the VM.
 If you use --keep-alive, you will need to manually delete the VM to avoid charges.
+
+## Multi-File Inputs
+
+The scripts suffixed with "\_multi.sh" are prototype wrapper scripts for passing multiple files and auto-populating a template settings file. Once finished, this would provide an easier way to automate processing of multiple files. 

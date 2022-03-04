@@ -1,0 +1,31 @@
+# In this example we have paired-end RNA-Seq data in FASTQ files
+job_uuid: TEST
+readgroup_bam_file_list: []
+readgroup_fastq_file_list:
+  - forward_fastq:
+      class: File
+      location: {% FORWARD %}
+    reverse_fastq:
+      class: File
+      location: {% REVERSE %}
+    readgroup_meta:
+      ID: TEMPUS_SAMPLE
+      PL: ILLUMINA
+      SM: TEMPUS_SAMPLE
+threads: 8
+picard_java_mem: 8
+gencode_version: v36
+# gene_info is a tab-separated file used to augment gene counts it includes:
+#  gene_id, total_exon_length, gene_name, gene_type, chromosome
+gene_info:
+  class: File
+  location: /mnt/data/input/gs/reference_files_rnseq_pipeline/hg38_reference/gencode.v36.by-gene_exon_lengthsums.tsv
+ref_flat:
+  class: File
+  location: /mnt/data/input/gs/reference_files_rnseq_pipeline/hg38_reference/gencode.v36.annotation.refFlat
+ribosome_intervals:
+  class: File
+  location: /mnt/data/input/gs/reference_files_rnseq_pipeline/hg38_reference/gencode.v36.annotation.ribosomal_ranges
+star_genome_dir:
+  class: Directory
+  location: /mnt/data/input/gs/reference_files_rnseq_pipeline/hg38_reference/star-2.7.5c_GRCh38.d1.vd1_gencode.v36

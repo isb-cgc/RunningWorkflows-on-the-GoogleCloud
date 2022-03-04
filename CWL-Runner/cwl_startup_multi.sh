@@ -74,7 +74,7 @@ echo "Copying variable input files to local disk and updating settings file"
 while IFS=':' read -ra VAR_INPUT_LIST; do
   for VAR_IN in "${VAR_INPUT_LIST[@]}"; do
     while IFS=';' read -ra SUB_INPUT_LIST; do
-      for SUB_IN in "${SUB_INPUT_LIST}"; do
+      for SUB_IN in "${SUB_INPUT_LIST[@]}"; do
         while IFS='=' read -ra KEY_VAL; do
           KEY="${KEY_VAL[0]}"
           VAL="${KEY_VAL[1]}"
